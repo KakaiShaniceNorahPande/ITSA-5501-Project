@@ -61,3 +61,72 @@ docker compose up -d --scale frontend=3
 I verified using the follwing for frontend and prometheus.
 Frontend: http://localhost:9090
 Prometheus: http://localhost:9091
+
+Project Milestone Three.
+# ITSA-5501 Project - Milestone 3
+
+## Overview
+This milestone covers Kubernetes deployment with shared persistent storage, scaling and rolling updates, and Infrastructure as Code using Terraform on Azure
+
+## Project Structure
+ITSA-5501-Project/
+k8s/pvc.yml
+/deployment.yml
+/service.yml
+IaC/main.tf
+/variables.tf
+/outputs.tf
+README.md(updated)
+
+## Kubernetes Operations
+I created a PersistentVolumeClaim named `shared-pvc` with `ReadWriteOnce` and `500Mi`, created a deployment with 2 replicas and each pod contained:
+- nginx-container using `nginx:latest`
+- sidecar-container using `busybox`
+Then both containers shared the same PVC-backed volume, exposed the deployment using a NodePort service, scaled the deployment from 2 replicas to 5 replicas, updated nginx image from `nginx:latest` to `nginx:1.21`, verified shared data access between containers, and then cleaned up the resources.
+
+## Terraform Operations
+I configured the Azure provider with Terraform then created:
+- Resource Group
+- Virtual Network
+- Subnet
+- Public IP
+- Network Interface
+- Linux Virtual Machine
+I used variables for:
+- resource_group_name
+- location
+- vm_size
+- admin_username
+Then added tags with `Environment = Dev`, ran commands and destroyed resources after completion.
+
+## Commands Used
+I used the following commands to run the k8s files and the iac files
+then changed directory to work on both of them
+cd ../k8s
+minikube start
+kubectl get nodes
+kubectl apply -f pvc.yml
+kubectl apply -f deployment.yml
+kubectl apply -f service.yml
+kubectl get pvc
+kubectl get deployments
+kubectl get pods
+kubectl get svc
+minikube service nginx-sidecar-service --url
+kubectl scale deployment nginx-sidecar-deployment --replicas=5
+kubectl get pods
+kubectl get deployment
+kubectl get pods
+kubectl exec -it pod-name -c nginx-container -- /bin/sh#picked one pod name to use for this command
+cat /usr/share/nginx/html/log.txt
+kubectl delete -f service.yml
+kubectl delete -f deployment.yml
+kubectl delete -f pvc.yml
+cd ../iac
+az login
+az ad sp create-for-rbac --name terraform-sp --role Contributor --scopes /subscriptions/your-subscription-id#used my subscription id
+terraform init
+terraform validate
+terraform apply
+terraform state list
+terraform destroy
