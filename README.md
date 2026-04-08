@@ -103,7 +103,7 @@ Then added tags with `Environment = Dev`, ran commands and destroyed resources a
 I used the following commands to run the k8s files and the iac files
 then changed directory to work on both of them
 - cd ../k8s
-- minikube start
+- minikube start --driver=docker
 - kubectl get nodes
 - kubectl apply -f pvc.yml
 - kubectl apply -f deployment.yml
