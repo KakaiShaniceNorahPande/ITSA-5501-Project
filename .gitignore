@@ -3,3 +3,8 @@
 .DS_Store
 node_modules/
 .env
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+.terraform.lock.hcl
