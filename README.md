@@ -102,31 +102,31 @@ Then added tags with `Environment = Dev`, ran commands and destroyed resources a
 ## Commands Used
 I used the following commands to run the k8s files and the iac files
 then changed directory to work on both of them
-cd ../k8s
-minikube start
-kubectl get nodes
-kubectl apply -f pvc.yml
-kubectl apply -f deployment.yml
-kubectl apply -f service.yml
-kubectl get pvc
-kubectl get deployments
-kubectl get pods
-kubectl get svc
-minikube service nginx-sidecar-service --url
-kubectl scale deployment nginx-sidecar-deployment --replicas=5
-kubectl get pods
-kubectl get deployment
-kubectl get pods
-kubectl exec -it pod-name -c nginx-container -- /bin/sh#picked one pod name to use for this command
-cat /usr/share/nginx/html/log.txt
-kubectl delete -f service.yml
-kubectl delete -f deployment.yml
-kubectl delete -f pvc.yml
-cd ../iac
-az login
-az ad sp create-for-rbac --name terraform-sp --role Contributor --scopes /subscriptions/your-subscription-id#used my subscription id
-terraform init
-terraform validate
-terraform apply
-terraform state list
-terraform destroy
+- cd ../k8s
+- minikube start
+- kubectl get nodes
+- kubectl apply -f pvc.yml
+- kubectl apply -f deployment.yml
+- kubectl apply -f service.yml
+- kubectl get pvc
+- kubectl get deployments
+- kubectl get pods
+- kubectl get svc
+- minikube service nginx-sidecar-service --url
+- kubectl scale deployment nginx-sidecar-deployment --replicas=5
+- kubectl get pods
+- kubectl get deployment
+- kubectl get pods
+- kubectl exec -it pod-name -c nginx-container -- /bin/sh#picked one pod name to use for this command
+- cat /usr/share/nginx/html/log.txt
+- kubectl delete -f service.yml
+- kubectl delete -f deployment.yml
+- kubectl delete -f pvc.yml
+- cd ../iac
+- az login
+- az ad sp create-for-rbac --name terraform-sp --role Contributor --scopes /subscriptions/your-subscription-id#used my subscription id
+- terraform init
+- terraform validate
+- terraform apply
+- terraform state list
+- terraform destroy
