@@ -25,7 +25,12 @@ spec:
           image: busybox
           command: ["/bin/sh", "-c"]
           args:
-            - while true; do echo "Hello from sidecar" >> /data/log.txt; sleep 10; done
+            - |
+              echo "<html><body><h1>Hello from sidecar</h1></body></html>" > /data/index.html;
+              while true; do
+                echo "Hello from sidecar" >> /data/log.txt;
+                sleep 10;
+              done
           volumeMounts:
             - name: shared-storage
               mountPath: /data
